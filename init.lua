@@ -1,6 +1,7 @@
 require 'core.options'
 require 'core.keymaps'
 require 'core.autocommands'
+require 'core.customcommands'
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -31,7 +32,7 @@ rtp:prepend(lazypath)
 require('lazy').setup {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 
-  { 'MAC427/guess-indent.nvim', opts = {} }, -- Detect tabstop and shiftwidth automatically
+  { 'NMAC427/guess-indent.nvim', opts = {} }, -- Detect tabstop and shiftwidth automatically
   -- This is often very useful to both group configuration, as well as handle
   -- lazy loading plugins that don't need to be loaded immediately at startup.
   --
@@ -55,10 +56,12 @@ require('lazy').setup {
   require 'plugins.treesitter',
   require 'plugins.conform',
   require 'plugins.blink',
-  --  require 'plugins.lazydev',
-  {
-    require 'plugins.catppuccin',
-  },
+  require 'plugins.autopairs',
+  require 'plugins.indent_line',
+  require 'plugins.lazydev',
+    {
+      require 'plugins.catppuccin',
+    },
 }
 require 'core.lsp'
 

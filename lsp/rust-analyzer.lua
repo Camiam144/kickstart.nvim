@@ -8,6 +8,9 @@ return {
       check = {
         command = 'clippy',
       },
+      cargo = {
+        allFeatures = true,
+      },
       diagnostics = {
         enable = true,
       },

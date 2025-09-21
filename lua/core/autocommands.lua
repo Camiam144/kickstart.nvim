@@ -138,3 +138,22 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
   desc = 'LSP: Disable hover capability from Ruff',
 })
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  group = vim.api.nvim_create_augroup('HighlightColumn', { clear = true }),
+  -- pattern = '*',
+  -- command = 'setlocal colorcolumn=88',
+  callback = function()
+    -- Default to 80 col highlighting, python is 88 and md/text docs don't have
+    -- a highlight.
+    local highlight_col = 80
+    if vim.bo.filetype == 'python' then
+      highlight_col = 88
+    end
+    if vim.bo.filetype == 'text' or vim.bo.filetype == 'markdown' then
+      highlight_col = 0
+    end
+    vim.opt_local.colorcolumn = ''
+    vim.opt_local.colorcolumn = tostring(highlight_col)
+  end,
+})
