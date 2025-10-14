@@ -3,9 +3,9 @@ vim.lsp.enable {
   'lua_ls',
   'ruff',
   'rust-analyzer',
+  'clangd',
   --  'jedi-language-server',
 }
--- vim.lsp.config { 'jedi-language-server' }
 
 vim.diagnostic.config {
   severity_sort = true,

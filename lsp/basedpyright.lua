@@ -4,6 +4,7 @@
 ---
 --- `basedpyright`, a static type checker and language server for python
 
+local blink = require 'blink.cmp'
 local function set_python_path(path)
   local clients = vim.lsp.get_clients {
     bufnr = vim.api.nvim_get_current_buf(),
@@ -41,6 +42,7 @@ return {
       },
     },
   },
+  capabilities = vim.tbl_deep_extend('force', {}, vim.lsp.protocol.make_client_capabilities(), blink.get_lsp_capabilities(), {}),
   on_attach = function(client, bufnr)
     vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightOrganizeImports', function()
       client:exec_cmd {

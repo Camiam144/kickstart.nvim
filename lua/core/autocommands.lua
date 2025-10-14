@@ -70,6 +70,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
     --  the definition of its *type*, not where it was *defined*.
     map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
+    if vim.lsp.get_client_by_id(event.data.client_id).name == 'clangd' then
+      map('grh', '<Cmd>LspClangdSwitchSourceHeader<CR>', 'Clangd Switch Source [H]eader')
+    end
+
     -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
     ---@param client vim.lsp.Client
     ---@param method vim.lsp.protocol.Method
