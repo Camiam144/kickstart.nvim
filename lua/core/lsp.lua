@@ -4,7 +4,8 @@ vim.lsp.enable {
   'ruff',
   'rust-analyzer',
   'clangd',
-  --  'jedi-language-server',
+  'vtsls',
+  'emmet_language_server',
 }
 
 vim.diagnostic.config {

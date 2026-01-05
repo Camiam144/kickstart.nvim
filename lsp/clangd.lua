@@ -97,10 +97,5 @@ return {
     vim.api.nvim_buf_create_user_command(bufnr, 'LspClangdShowSymbolInfo', function()
       symbol_info(bufnr, client)
     end, { desc = 'Show symbol info' })
-    --    local mygroup = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = false })
-    --    vim.api.nvim_create_autocmd(
-    --      'LspAttach',
-    --      { command = vim.keymap.set('n', 'grH', '<Cmd>LspClangdSwitchSourceHeader<CR>', { desc = 'LSP: Clangd Switch Source [H]eader' }), group = mygroup }
-    --    )
   end,
 }
