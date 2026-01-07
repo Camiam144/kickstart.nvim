@@ -82,34 +82,17 @@ return { -- Autocompletion
       },
     },
     enabled = function()
-      -- Here we check if the autocomplete should be enabled. If the current or
-      -- previous position is within a comment block, disable the autocomplete.
-      -- This gives a much better experience while typing comments.
-      local function iscomment_prev_node()
-        local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-        if col > 0 then
-          local prev_pos_success, prev_node = pcall(vim.treesitter.get_node, { pos = { row - 1, col - 1 } })
-          if prev_pos_success and prev_node and vim.tbl_contains({ 'comment', 'comment_content', 'line_comment', 'block_comment' }, prev_node:type()) then
-            return prev_node
-          end
-        end
-        return nil
-      end
-
-      local function iscomment_curr_node()
-        local success, node = pcall(vim.treesitter.get_node)
-        if success and node and vim.tbl_contains({ 'comment', 'comment_content', 'line_comment', 'block_comment' }, node:type()) then
-          return node
-        end
-        return nil
-      end
-
-      local node = iscomment_curr_node() or iscomment_prev_node()
-      if node then
+      local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+      row = row - 1
+      local check_col = (col > 0 and col - 1) or col
+      local success, node = pcall(vim.treesitter.get_node, {
+        pos = { row, check_col },
+      })
+      local reject = { 'comment', 'line_comment', 'block_comment', 'doc_comment' }
+      if success and node and vim.tbl_contains(reject, node:type()) then
         return false
-      else
-        return true
       end
+      return true
     end,
 
     snippets = { preset = 'luasnip' },
